@@ -1,0 +1,243 @@
+build:
+  generated-by: csolution version 2.6.0
+  solution: Project.csolution.yml
+  project: Project.cproject.yml
+  context: Project+Target_1
+  compiler: AC6
+  device: STMicroelectronics::STM32F103C8
+  device-pack: Keil::STM32F1xx_DFP@2.4.1
+  processor:
+    endian: little
+    fpu: off
+    core: Cortex-M3
+  packs:
+    - pack: Keil::STM32F1xx_DFP@2.4.1
+      path: ${CMSIS_PACK_ROOT}/Keil/STM32F1xx_DFP/2.4.1
+  optimize: debug
+  debug: on
+  misc:
+    ASM:
+      - -masm=auto
+    C:
+      - -std=c99
+      - -DNDEBUG
+      - -fno-rtti
+      - -funsigned-char
+      - -fshort-enums
+      - -fshort-wchar
+      - -ffunction-sections
+      - -Wno-packed
+      - -Wno-missing-variable-declarations
+      - -Wno-missing-prototypes
+      - -Wno-missing-noreturn
+      - -Wno-sign-conversion
+      - -Wno-nonportable-include-path
+      - -Wno-reserved-id-macro
+      - -Wno-unused-macros
+      - -Wno-documentation-unknown-command
+      - -Wno-documentation
+      - -Wno-license-management
+      - -Wno-parentheses-equality
+    CPP:
+      - -xc++
+      - -std=c++11
+      - -fno-rtti
+      - -funsigned-char
+      - -fshort-enums
+      - -fshort-wchar
+      - -ffunction-sections
+      - -Wno-packed
+      - -Wno-missing-variable-declarations
+      - -Wno-missing-prototypes
+      - -Wno-missing-noreturn
+      - -Wno-sign-conversion
+      - -Wno-nonportable-include-path
+      - -Wno-reserved-id-macro
+      - -Wno-unused-macros
+      - -Wno-documentation-unknown-command
+      - -Wno-documentation
+      - -Wno-license-management
+      - -Wno-parentheses-equality
+    Link:
+      - --map
+      - --load_addr_map_info
+      - --xref
+      - --callgraph
+      - --symbols
+      - --info sizes
+      - --info totals
+      - --info unused
+      - --info veneers
+      - --strict
+      - --summary_stderr
+      - --info summarysizes
+  define:
+    - USE_STDPERIPH_DRIVER
+    - STM32F10X_MD
+  define-asm:
+    - STM32F10X_MD
+  add-path:
+    - Start
+    - Library
+    - User
+    - System
+    - Hardware
+    - ${CMSIS_PACK_ROOT}/Keil/STM32F1xx_DFP/2.4.1/Device/Include
+  add-path-asm:
+    - ${CMSIS_PACK_ROOT}/Keil/STM32F1xx_DFP/2.4.1/Device/Include
+  output-dirs:
+    intdir: tmp
+    outdir: out/Project/Target_1
+    rtedir: RTE
+  output:
+    - type: elf
+      file: Project.axf
+  linker:
+    script: Project_Target_1.sct
+  groups:
+    - group: Start
+      files:
+        - file: Start/startup_stm32f10x_md.s
+          category: sourceAsm
+        - file: Start/core_cm3.c
+          category: sourceC
+        - file: Start/core_cm3.h
+          category: header
+        - file: Start/stm32f10x.h
+          category: header
+        - file: Start/system_stm32f10x.c
+          category: sourceC
+        - file: Start/system_stm32f10x.h
+          category: header
+    - group: Library
+      files:
+        - file: Library/misc.c
+          category: sourceC
+        - file: Library/misc.h
+          category: header
+        - file: Library/stm32f10x_adc.c
+          category: sourceC
+        - file: Library/stm32f10x_adc.h
+          category: header
+        - file: Library/stm32f10x_bkp.c
+          category: sourceC
+        - file: Library/stm32f10x_bkp.h
+          category: header
+        - file: Library/stm32f10x_can.c
+          category: sourceC
+        - file: Library/stm32f10x_can.h
+          category: header
+        - file: Library/stm32f10x_cec.c
+          category: sourceC
+        - file: Library/stm32f10x_cec.h
+          category: header
+        - file: Library/stm32f10x_crc.c
+          category: sourceC
+        - file: Library/stm32f10x_crc.h
+          category: header
+        - file: Library/stm32f10x_dac.c
+          category: sourceC
+        - file: Library/stm32f10x_dac.h
+          category: header
+        - file: Library/stm32f10x_dbgmcu.c
+          category: sourceC
+        - file: Library/stm32f10x_dbgmcu.h
+          category: header
+        - file: Library/stm32f10x_dma.c
+          category: sourceC
+        - file: Library/stm32f10x_dma.h
+          category: header
+        - file: Library/stm32f10x_exti.c
+          category: sourceC
+        - file: Library/stm32f10x_exti.h
+          category: header
+        - file: Library/stm32f10x_flash.c
+          category: sourceC
+        - file: Library/stm32f10x_flash.h
+          category: header
+        - file: Library/stm32f10x_fsmc.c
+          category: sourceC
+        - file: Library/stm32f10x_fsmc.h
+          category: header
+        - file: Library/stm32f10x_gpio.c
+          category: sourceC
+        - file: Library/stm32f10x_gpio.h
+          category: header
+        - file: Library/stm32f10x_i2c.c
+          category: sourceC
+        - file: Library/stm32f10x_i2c.h
+          category: header
+        - file: Library/stm32f10x_iwdg.c
+          category: sourceC
+        - file: Library/stm32f10x_iwdg.h
+          category: header
+        - file: Library/stm32f10x_pwr.c
+          category: sourceC
+        - file: Library/stm32f10x_pwr.h
+          category: header
+        - file: Library/stm32f10x_rcc.c
+          category: sourceC
+        - file: Library/stm32f10x_rcc.h
+          category: header
+        - file: Library/stm32f10x_rtc.c
+          category: sourceC
+        - file: Library/stm32f10x_rtc.h
+          category: header
+        - file: Library/stm32f10x_sdio.c
+          category: sourceC
+        - file: Library/stm32f10x_sdio.h
+          category: header
+        - file: Library/stm32f10x_spi.c
+          category: sourceC
+        - file: Library/stm32f10x_spi.h
+          category: header
+        - file: Library/stm32f10x_tim.c
+          category: sourceC
+        - file: Library/stm32f10x_tim.h
+          category: header
+        - file: Library/stm32f10x_usart.c
+          category: sourceC
+        - file: Library/stm32f10x_usart.h
+          category: header
+        - file: Library/stm32f10x_wwdg.c
+          category: sourceC
+        - file: Library/stm32f10x_wwdg.h
+          category: header
+    - group: System
+      files:
+        - file: System/Delay.c
+          category: sourceC
+        - file: System/Delay.h
+          category: header
+    - group: Hardware
+      files:
+        - file: Hardware/LED.c
+          category: sourceC
+        - file: Hardware/LED.h
+          category: header
+        - file: Hardware/PWM.c
+          category: sourceC
+        - file: Hardware/PWM.h
+          category: header
+        - file: Hardware/Serial.c
+          category: sourceC
+        - file: Hardware/Serial.h
+          category: header
+    - group: User
+      files:
+        - file: User/main.c
+          category: sourceC
+        - file: User/stm32f10x_conf.h
+          category: header
+        - file: User/stm32f10x_it.c
+          category: sourceC
+        - file: User/stm32f10x_it.h
+          category: header
+        - file: User/midi.c
+          category: sourceC
+        - file: User/midi.h
+          category: header
+  licenses:
+    - license: <unknown>
+      packs:
+        - pack: Keil::STM32F1xx_DFP@2.4.1

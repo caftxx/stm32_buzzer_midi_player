@@ -1,0 +1,14 @@
+build-idx:
+  generated-by: csolution version 2.6.0
+  csolution: Project.csolution.yml
+  tmpdir: tmp
+  cprojects:
+    - cproject: Project.cproject.yml
+  cbuilds:
+    - cbuild: Project+midi.cbuild.yml
+      project: Project
+      configuration: +midi
+      messages:
+        info:
+          - Project.cbuild-pack.yml - file is already up-to-date
+          - Project+midi.cbuild.yml - file is already up-to-date
