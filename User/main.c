@@ -17,13 +17,14 @@ void delay(uint32_t us);
 typedef struct {
     uint16_t magic;
     uint8_t seqid;
+    uint8_t channel_id;
     uint8_t payload_size;
-} MidiHeader;
+} __attribute__((packed)) MidiHeader;
 
 typedef struct {
     MidiHeader header;
     uint8_t payload[32];
-} MidiMessage;
+} __attribute__((packed)) MidiMessage;
 
 uint8_t gHasNewMessage = 0;
 uint8_t gDecodeLen = 0;
@@ -95,7 +96,7 @@ void onMidiEvent(midi_context_t *ctx, midi_event_t *event)
     // just play channel 0, ignore others
 
     uint8_t channel = event->status & 0x0f;
-    if (channel != 0) {
+    if (channel != gMessage.header.channel_id) {
         return;
     }
     

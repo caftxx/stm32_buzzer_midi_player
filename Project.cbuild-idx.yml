@@ -10,5 +10,6 @@ build-idx:
       configuration: +midi
       messages:
         info:
+          - Project.cbuild-set.yml - file is already up-to-date
           - Project.cbuild-pack.yml - file is already up-to-date
           - Project+midi.cbuild.yml - file is already up-to-date
