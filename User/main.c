@@ -122,6 +122,10 @@ void onMidiComplete(midi_context_t *ctx)
 {
     gDecodeLen = 0;
     gDecodeFunc = decodeHeader;
+
+    memset(ctx, 0, sizeof(*ctx));
+    ctx->on_event = onMidiEvent;
+    ctx->on_complete = onMidiComplete;
 }
 
 int main(void)

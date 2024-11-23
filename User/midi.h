@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <math.h>
 
 #define MIDI_HEADER_MAGIC       0x6468544d
 #define MIDI_TRACK_HEADER_MAGIC 0x6b72544d
@@ -111,7 +112,11 @@ typedef struct midi_context {
 
     uint32_t tempo;
     uint32_t decode_tracks_count;
+
+#ifndef NDEBUG
     uint32_t decode_len;
+#endif
+
 
     decode_status_t status;
 
@@ -134,4 +139,9 @@ typedef struct midi_context {
 } midi_context_t;
 
 int midi_decode(midi_context_t *ctx, uint8_t *buf, uint16_t len);
-double midi_note_to_freq(uint8_t note);
+
+static inline double midi_note_to_freq(uint8_t note)
+{
+    double n = note;
+    return 440 * pow(2, (n-69)/12);
+}
