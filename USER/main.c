@@ -89,14 +89,14 @@ void onMidiEvent(midi_context_t *ctx, midi_event_t *event)
     // just play one channel, ignore others
 
     uint8_t channel = event->status & 0x0f;
-    if (channel != gMessage.header.channel_id) {
-        return;
-    }
-    
     uint32_t delta = event->delta;
-
     uint8_t type = event->status & 0xf0;
+
     if (type == NOTE_ON || type == NOTE_OFF) {
+        if (channel != gMessage.header.channel_id) {
+            delay_us(delta);
+            return;
+        }
         uint32_t freq = midi_note_to_freq(event->param1);
         // the max duty is 127 in MIDI
         uint32_t duty = event->param2;
