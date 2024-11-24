@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 void PWM_Init(void);
-void PWM_SetCompare1(uint16_t Compare);
-void PWM_SetAutoreload(uint16_t Autoreload);
+void PWM_SetCompare1(uint8_t No, uint16_t Compare);
+void PWM_SetAutoreload(uint8_t No, uint16_t Autoreload);
 
 #endif

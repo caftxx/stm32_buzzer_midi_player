@@ -11,7 +11,7 @@
 
 void decodeHeader(uint8_t byte);
 void decodePayload(uint8_t byte);
-void buzzerPlay(uint32_t us, uint32_t frequency, uint32_t duty);
+void buzzerPlay(uint8_t channel, uint32_t us, uint32_t frequency, uint32_t duty);
 void onMidiEvent(midi_context_t *ctx, midi_event_t *event);
 void onMidiComplete(midi_context_t *ctx);
 
@@ -69,7 +69,7 @@ void onReadable(uint8_t byte)
     gDecodeFunc(byte);
 }
 
-void buzzerPlay(uint32_t us, uint32_t frequency, uint32_t duty)
+void buzzerPlay(uint8_t channel, uint32_t us, uint32_t frequency, uint32_t duty)
 {
     delay_us(us);
 
@@ -77,26 +77,21 @@ void buzzerPlay(uint32_t us, uint32_t frequency, uint32_t duty)
     // and prescaler=72 is set in pwm.c,
     // so we use 1000000 = 72MHz/72
     uint32_t period = 1000000 / frequency;
-    PWM_SetAutoreload(period - 1);
     uint32_t compareValue = (period * duty) / 100;
-    PWM_SetCompare1(compareValue);
+    PWM_SetAutoreload(channel, period - 1);
+    PWM_SetCompare1(channel, compareValue);
 }
 
 void onMidiEvent(midi_context_t *ctx, midi_event_t *event)
 {
     // simpler is better:
     // just focus on&off, ignore others
-    // just play one channel, ignore others
 
     uint8_t channel = event->status & 0x0f;
     uint32_t delta = event->delta;
     uint8_t type = event->status & 0xf0;
 
     if (type == NOTE_ON || type == NOTE_OFF) {
-        if (channel != gMessage.header.channel_id) {
-            delay_us(delta);
-            return;
-        }
         uint32_t freq = midi_note_to_freq(event->param1);
         // the max duty is 127 in MIDI
         uint32_t duty = event->param2;
@@ -106,7 +101,12 @@ void onMidiEvent(midi_context_t *ctx, midi_event_t *event)
             duty = 0;
         }
         duty = duty / 127. * 100;
-        buzzerPlay(delta, freq, duty / 3);
+
+        if (channel == 0 || channel == gMessage.header.channel_id) {
+            buzzerPlay(channel, delta, freq, duty);
+        } else {
+            delay_us(delta);
+        }
     } else {
         delay_us(delta);
     }
@@ -120,6 +120,8 @@ void onMidiComplete(midi_context_t *ctx)
     memset(ctx, 0, sizeof(*ctx));
     ctx->on_event = onMidiEvent;
     ctx->on_complete = onMidiComplete;
+    buzzerPlay(0, 0, 100, 0);
+    buzzerPlay(1, 0, 100, 0);
 }
 
 int main(void)
